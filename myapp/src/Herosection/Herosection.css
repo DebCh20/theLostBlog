@@ -1,0 +1,18 @@
+.heroSectionContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 20px; /* Adjust as needed */
+}
+
+.heroSectionContainer h1 {
+    font-family: Arial, sans-serif;
+    color: white;
+    font-size: 90px;
+    line-height: 1; /* Ensures each line sits close together */
+}
+
+.heroSectionContainer h3 {
+    font-family: Arial, sans-serif;
+    color: white;
+}
