@@ -6,7 +6,7 @@ function Navbar() {
   return (
     <div className='NavbarContainer'>
         <Link to='/'>Home</Link>
-        <Link>Blog</Link>
+        <Link to='/blog'>Blog</Link>
         <Link>About</Link>
         <Link to='/login'>Login</Link>
     </div>
