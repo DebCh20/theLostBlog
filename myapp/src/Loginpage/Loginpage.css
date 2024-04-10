@@ -1,4 +1,4 @@
-#submitCreds {
+#submitCreds, .submitContent {
     height: 50px;
     margin: 5px;
     width: 120px;
@@ -24,7 +24,7 @@
       inset 5px 5px 10px #212121, inset -5px -5px 10px #212121;
   }
   
-  #submitCreds:hover {
+  #submitCreds,.submitContent:hover {
     -webkit-box-shadow: 1px 1px 13px #20232e, -1px -1px 13px #545b78;
     box-shadow: 1px 1px 13px #20232e, -1px -1px 13px #545b78;
     color: #d6d6d6;
@@ -32,7 +32,7 @@
     transition: 500ms;
   }
   
-  #submitCreds:active {
+  #submitCreds,.submitContent:active {
     -webkit-box-shadow: 1px 1px 13px #20232e, -1px -1px 33px #545b78;
     box-shadow: 1px 1px 13px #20232e, -1px -1px 33px #545b78;
     color: #d6d6d6;
@@ -48,7 +48,7 @@
     gap:2rem;
     width: 30%;
     height: 20rem;
-    margin-left: 30%;
+    margin-left: 33%;
     border: solid #404c5d 1px;
     -webkit-box-shadow: -1px -5px 15px #41465b, 5px 5px 15px #41465b,
       inset 5px 5px 10px #212121, inset -5px -5px 10px #212121;
