@@ -1,7 +1,29 @@
 import React from 'react'
 import '../Loginpage/Loginpage.css'
+import { Client,Databases, ID} from 'appwrite';
 
 function Blogpost() {
+
+  const client = new Client();
+  const databases = new Databases(client);
+  
+  client
+      .setEndpoint('https://cloud.appwrite.io/v1')
+      .setProject('');
+
+      const promise = databases.createDocument(
+        '',
+        '',
+        ID.unique(),
+        { "postbody": "<p>My second js blog</p>" }
+    );
+    
+    promise.then(function (response) {
+        console.log(response);
+    }, function (error) {
+        console.log(error);
+    });    
+
   return (
     <div className='blogContentContainer' 
     style={{display:'flex', flexDirection:'column', justifyContent:'center', gap:'1rem'}}>
