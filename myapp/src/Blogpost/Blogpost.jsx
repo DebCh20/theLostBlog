@@ -1,28 +1,37 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import '../Loginpage/Loginpage.css'
 import { Client,Databases, ID} from 'appwrite';
+import { Editor } from '@tinymce/tinymce-react';
 
 function Blogpost() {
 
-  const client = new Client();
-  const databases = new Databases(client);
+  // const client = new Client();
+  // const databases = new Databases(client);
   
-  client
-      .setEndpoint('https://cloud.appwrite.io/v1')
-      .setProject('');
+  // client
+  //     .setEndpoint('https://cloud.appwrite.io/v1')
+  //     .setProject('');
 
-      const promise = databases.createDocument(
-        '',
-        '',
-        ID.unique(),
-        { "postbody": "<p>My second js blog</p>" }
-    );
+  //     const promise = databases.createDocument(
+  //       '',
+  //       '',
+  //       ID.unique(),
+  //       { "postbody": "<p>My second js blog</p>" }
+  //   );
     
-    promise.then(function (response) {
-        console.log(response);
-    }, function (error) {
-        console.log(error);
-    });    
+  //   promise.then(function (response) {
+  //       console.log(response);
+  //   }, function (error) {
+  //       console.log(error);
+  //   });   
+  
+  const editorRef = useRef(null);
+  const log = () => {
+    if (editorRef.current) {
+      console.log(editorRef.current.getContent());
+    }
+  };
+  
 
   return (
     <div className='blogContentContainer' 
@@ -31,10 +40,25 @@ function Blogpost() {
         style={{height:'2rem'}}></input>
         <input className='subHeader' placeholder='Enter the sub-header'
         style={{height:'2rem'}}></input>
-        <input className='content' placeholder='Enter the blog content'
-        style={{height:'20rem', paddingTop: '0',
-        paddingLeft: '0', lineHeight: '1em'}}></input>
-        <button className='submitContent' style={{marginLeft:'45%'}}>Submit</button>
+        <Editor
+        apiKey='ccnwrn9rut4ofc9egcecui85abdx29ai9tx7bn8lt53e5nia'
+        onInit={(evt, editor) => editorRef.current = editor}        
+        init={{
+          height: 500,
+          menubar: false,
+          plugins: [
+            'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+            'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+            'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+          ],
+          toolbar: 'undo redo | blocks | ' +
+            'bold italic forecolor | alignleft aligncenter ' +
+            'alignright alignjustify | bullist numlist outdent indent | ' +
+            'removeformat | help',
+          content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+        }}
+      />
+      <button onClick={log}>Log editor content</button>
     </div>
   )
 }
