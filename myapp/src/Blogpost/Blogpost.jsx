@@ -16,22 +16,23 @@ function Blogpost() {
       .setProject(process.env.REACT_APP_APPWRITE_PROJECT_ID);
 
       useEffect(() => {
-        const promise = databases.createDocument(
-          process.env.REACT_APP_APPWRITE_DATABASE_ID,
-          process.env.REACT_APP_APPWRITE_COLLECTION_ID,
-          ID.unique(),
-          { "postbody":editorContent}
-        );
-      
-      promise.then(function (response) {
-          console.log(response);
-      }, function (error) {
-          console.log(error);
-      });  
-      }, [editorContent])       
+        
+      }, [editorContent, editorRef.current.getContent()])       
   
   const editorRef = useRef(null);
   const log = () => {
+    const promise = databases.createDocument(
+      process.env.REACT_APP_APPWRITE_DATABASE_ID,
+      process.env.REACT_APP_APPWRITE_COLLECTION_ID,
+      ID.unique(),
+      { "postbody":editorContent}
+    );
+  
+  promise.then(function (response) {
+      console.log(response);
+  }, function (error) {
+      console.log(error);
+  });  
     if (editorRef.current) {
       setEditorContent(editorRef.current.getContent());
     }
