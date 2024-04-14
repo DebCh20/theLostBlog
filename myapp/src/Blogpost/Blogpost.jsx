@@ -1,34 +1,39 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import '../Loginpage/Loginpage.css'
 import { Client,Databases, ID} from 'appwrite';
 import { Editor } from '@tinymce/tinymce-react';
 
 function Blogpost() {
 
-  // const client = new Client();
-  // const databases = new Databases(client);
+   let [editorContent, setEditorContent] = useState('');   
   
-  // client
-  //     .setEndpoint('https://cloud.appwrite.io/v1')
-  //     .setProject('');
+  
+  const client = new Client();
+  const databases = new Databases(client);
+  
+  client
+      .setEndpoint('https://cloud.appwrite.io/v1')
+      .setProject(process.env.REACT_APP_APPWRITE_PROJECT_ID);
 
-  //     const promise = databases.createDocument(
-  //       '',
-  //       '',
-  //       ID.unique(),
-  //       { "postbody": "<p>My second js blog</p>" }
-  //   );
-    
-  //   promise.then(function (response) {
-  //       console.log(response);
-  //   }, function (error) {
-  //       console.log(error);
-  //   });   
+      useEffect(() => {
+        const promise = databases.createDocument(
+          process.env.REACT_APP_APPWRITE_DATABASE_ID,
+          process.env.REACT_APP_APPWRITE_COLLECTION_ID,
+          ID.unique(),
+          { "postbody":editorContent}
+        );
+      
+      promise.then(function (response) {
+          console.log(response);
+      }, function (error) {
+          console.log(error);
+      });  
+      }, [editorContent])       
   
   const editorRef = useRef(null);
   const log = () => {
     if (editorRef.current) {
-      console.log(editorRef.current.getContent());
+      setEditorContent(editorRef.current.getContent());
     }
   };
   
@@ -41,7 +46,7 @@ function Blogpost() {
         <input className='subHeader' placeholder='Enter the sub-header'
         style={{height:'2rem'}}></input>
         <Editor
-        apiKey='ccnwrn9rut4ofc9egcecui85abdx29ai9tx7bn8lt53e5nia'
+        apiKey= {process.env.REACT_APP_TINYMCE_APIKEY}
         onInit={(evt, editor) => editorRef.current = editor}        
         init={{
           height: 500,
