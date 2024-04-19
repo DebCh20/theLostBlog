@@ -5,47 +5,41 @@ import { Editor } from '@tinymce/tinymce-react';
 
 function Blogpost() {
 
-   let [editorContent, setEditorContent] = useState('');   
-  
+  let editorRef = useRef(null);
   
   const client = new Client();
   const databases = new Databases(client);
   
   client
       .setEndpoint('https://cloud.appwrite.io/v1')
-      .setProject(process.env.REACT_APP_APPWRITE_PROJECT_ID);
-
-      useEffect(() => {
-        
-      }, [editorContent, editorRef.current.getContent()])       
+      .setProject(process.env.REACT_APP_APPWRITE_PROJECT_ID);      
   
-  const editorRef = useRef(null);
-  const log = () => {
-    const promise = databases.createDocument(
-      process.env.REACT_APP_APPWRITE_DATABASE_ID,
-      process.env.REACT_APP_APPWRITE_COLLECTION_ID,
-      ID.unique(),
-      { "postbody":editorContent}
-    );
-  
-  promise.then(function (response) {
-      console.log(response);
-  }, function (error) {
-      console.log(error);
-  });  
-    if (editorRef.current) {
-      setEditorContent(editorRef.current.getContent());
-    }
+  const log = () => { 
+   if(editorRef.current.getContent()){
+     const promise = databases.createDocument(
+       process.env.REACT_APP_APPWRITE_DATABASE_ID,
+       process.env.REACT_APP_APPWRITE_COLLECTION_ID,
+       ID.unique(),
+       { 
+        "postbody":editorRef.current.getContent()}
+     );
+   
+   promise.then(function (response) {
+       console.log(response);
+   }, function (error) {
+       console.log(error);
+   }); 
+  }
   };
   
 
   return (
     <div className='blogContentContainer' 
     style={{display:'flex', flexDirection:'column', justifyContent:'center', gap:'1rem'}}>
-        <input className='mainHeader' placeholder='Enter the main header'
-        style={{height:'2rem'}}></input>
-        <input className='subHeader' placeholder='Enter the sub-header'
-        style={{height:'2rem'}}></input>
+        {/* <input className='mainHeader' placeholder='Enter the title'
+        style={{height:'2rem'}}></input> */}
+        {/* <input className='subHeader' placeholder='Enter the sub-header'
+        style={{height:'2rem'}}></input> */}
         <Editor
         apiKey= {process.env.REACT_APP_TINYMCE_APIKEY}
         onInit={(evt, editor) => editorRef.current = editor}        
@@ -59,7 +53,7 @@ function Blogpost() {
           ],
           toolbar: 'undo redo | blocks | ' +
             'bold italic forecolor | alignleft aligncenter ' +
-            'alignright alignjustify | bullist numlist outdent indent | ' +
+            'alignright alignjustify | bullist numlist outdent indent | ' +'code |'+ 'image|'+
             'removeformat | help',
           content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
         }}
