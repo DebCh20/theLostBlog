@@ -6,6 +6,7 @@ import { Route, Routes } from 'react-router-dom';
 import Loginpage from './Loginpage/Loginpage';
 import Blogpage from './Blogpage/Blogpage';
 import Blogpost from './Blogpost/Blogpost';
+import Blogread from './Blogread/Blogread';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/login" element={<Loginpage/>}/>
         <Route path="/blog" element={<Blogpage/>}/>
         <Route path="/blogpost" element={<Blogpost/>}/>
+        <Route path="/blogread" element={<Blogread/>}/>
       </Routes>
     </div>
   );

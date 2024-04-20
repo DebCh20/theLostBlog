@@ -21,7 +21,8 @@ function Blogpost() {
        process.env.REACT_APP_APPWRITE_COLLECTION_ID,
        ID.unique(),
        { 
-        "postbody":editorRef.current.getContent()}
+        'title':'demo blog',
+        "blogbody":editorRef.current.getContent()}
      );
    
    promise.then(function (response) {
