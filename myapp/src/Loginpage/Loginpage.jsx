@@ -20,7 +20,7 @@ function Loginpage() {
     setValidating(true);
     const account = new Account(client);
     console.log(userID.current.value, password.current.value);
-    const promise = account.createEmailPasswordSession(userID.current.value, password.current.value);
+    const promise = account.createEmailSession(userID.current.value, password.current.value);
 
     promise.then(function (response) {
         console.log(response); // Success
